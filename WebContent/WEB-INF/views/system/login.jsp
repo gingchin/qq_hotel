@@ -37,6 +37,10 @@
 			<div class="login-button">
 				登录
 			</div>
+			<br>
+			<div class="reg">
+			   &nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp &nbsp&nbsp&nbsp&nbsp<a href="reg">立即注册 &gt;&gt;</a>
+			</div>
 		</div>
 		<div class="sk-rotating-plane"></div>
 <canvas class="particles-js-canvas-el" width="1147" height="952" style="width: 100%; height: 100%;"></canvas></div>

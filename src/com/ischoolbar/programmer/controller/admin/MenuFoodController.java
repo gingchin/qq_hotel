@@ -40,26 +40,14 @@ public class MenuFoodController {
 	
 	@Autowired
 	private MenuFoodService menuFoodService;
-	
-	/**
-	 * 用户列表页面
-	 * @param model
-	 * @return
-	 */
+
 	@RequestMapping(value="/food_list",method=RequestMethod.GET)
 	public ModelAndView list(ModelAndView model){
 		model.setViewName("menu_food/menu_food_index");
 		return model;
 	}
 	
-	/**
-	 * 获取用户列表
-	 * @param page
-	 * @param menuFoodname
-	 * @param roleId
-	 * @param sex
-	 * @return
-	 */
+
 	@RequestMapping(value="/food_list",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getList(Page page,
@@ -76,11 +64,8 @@ public class MenuFoodController {
 		return ret;
 	}
 	
-	/**
-	 * 添加用户
-	 * @param menuFood
-	 * @return
-	 */
+
+
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> add(MenuFood menuFood){

@@ -324,13 +324,13 @@
 			{ field:'ename',title:'菜名',width:100,sortable:true},
 			{ field:'state',title:'状态',width:100,formatter:function(value,row,index){
 				switch(value){
-					case 0:{
+					case '0':{
 						return '不可用';
 					}
-					case 1:{
+					case '1':{
 						return '可用';
 					}
-					case 2:{
+					case '2':{
 						return '维护中';
 					}
 				}

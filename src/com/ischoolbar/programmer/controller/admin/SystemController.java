@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ischoolbar.programmer.entity.Account;
 import com.ischoolbar.programmer.entity.admin.Authority;
 import com.ischoolbar.programmer.entity.admin.Menu;
 import com.ischoolbar.programmer.entity.admin.Role;
@@ -193,5 +194,62 @@ public class SystemController {
 		ret.put("msg", "密码修改成功！");
 		return ret;
 	} 
+	
+	/**
+	 * 注册页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/reg",method=RequestMethod.GET)
+	public ModelAndView reg(ModelAndView model
+			){
+		model.setViewName("system/reg");
+		return model;
+	}
+	/**
+	 * 注册信息提交
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/reg",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> regAct(User user){
+		Map<String,String> retMap = new HashMap<String, String>();
+		if(user == null){
+			retMap.put("type", "error");
+			retMap.put("msg", "请填写正确的用户信息！");
+			return retMap;
+		}
+		if(StringUtils.isEmpty(user.getUsername())){
+			retMap.put("type", "error");
+			retMap.put("msg", "用户名不能为空！");
+			return retMap;
+		}
+		if(StringUtils.isEmpty(user.getPassword())){
+			retMap.put("type", "error");
+			retMap.put("msg", "密码不能为空！");
+			return retMap;
+		}
+		
+		// 用户名不允许重复
+		User userTmp = userService.findByUsername(user.getUsername());
+		if(userTmp != null){
+			retMap.put("type", "error");
+			retMap.put("msg", "该用户名已经存在，请重新输入！");
+			return retMap;
+		}
+		// 默认注册为普通用户,权限后期可由管理员进行修改
+		long roleId = 2l;
+		user.setRoleId(roleId);
+		if(userService.add(user) <= 0){
+			retMap.put("type", "error");
+			retMap.put("msg", "注册失败，请联系管理员！");
+			return retMap;
+		}
+
+		retMap.put("type", "success");
+		retMap.put("msg", "注册成功！");
+		return retMap;
+	}
 	
 }

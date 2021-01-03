@@ -51,6 +51,7 @@
 			<mvc:mapping path="/admin/**"/>
 			<mvc:mapping path="/system/*"/>
 			<mvc:exclude-mapping path="/system/login"/>
+			<mvc:exclude-mapping path="/system/reg"/>
 			<mvc:exclude-mapping path="/system/get_cpacha"/>
 			<mvc:exclude-mapping path="/resources/**"/>
 			<bean class="com.ischoolbar.programmer.interceptor.admin.LoginInterceptor"></bean>
