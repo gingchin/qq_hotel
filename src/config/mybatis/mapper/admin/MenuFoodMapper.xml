@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ischoolbar.programmer.dao.admin.MenuFoodDao">
+
+	<!-- 根据菜名名查找菜名 -->
+	<select id="findByMenuFoodname" parameterType="String" resultType="Integer">
+		select count(*) from menu_food where foodname = #{foodname} 
+	</select>
+	
+	<!-- 添加菜名 -->
+	<insert id="add" parameterType="MenuFood">
+		insert into menu_food(id,foodname,photo,price,remain) values(null,#{foodname},#{photo},#{price},#{remain})
+	</insert>
+	
+	<!-- 修改菜名 -->
+	<update id="edit" parameterType="MenuFood">
+		update menu_food set foodname = #{foodname}, photo = #{photo},price = #{price},remain = #{remain}  where id = #{id}
+	</update>
+	<!-- 删除菜名 -->
+	<delete id="delete" parameterType="String">
+		delete from menu_food where id in(${value})
+	</delete>
+	
+	<!-- 分页获取菜单列表 -->
+	<select id="findList" parameterType="Map" resultType="MenuFood">
+		select * from menu_food where 1 = 1 
+		
+		<!--根据食物名称筛选， 非空则加入条件筛选 -->
+		<if test="foodname != null">
+			and foodname like '%${foodname}%' 
+		</if>
+		<if test="offset != null and pageSize != null">
+			limit #{offset},#{pageSize}
+		</if>
+	</select>
+	
+	<!-- 获取符合结果的总记录数 -->
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		select count(*) from menu_food where 1 = 1 
+		<!--根据食物名称筛选， 非空则加入条件筛选 -->
+		<if test="foodname != null">
+			and foodname like '%${foodname}%' 
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ischoolbar.programmer.dao.admin.EntertainmentDao">
+
+	<!-- 根据娱乐项目名查找娱乐项目 -->
+	<select id="findByEntertainmentname" parameterType="String" resultType="Integer">
+		select count(*) from entertainment where ename = #{ename} 
+	</select>
+	
+	<!-- 添加娱乐项目 -->
+	<insert id="add" parameterType="Entertainment">
+		insert into entertainment(id,ename,photo,state) values(null,#{ename},#{photo},#{state})
+	</insert>
+	
+	<!-- 修改娱乐项目 -->
+	<update id="edit" parameterType="Entertainment">
+		update entertainment set ename = #{ename}, photo = #{photo},state = #{state}  where id = #{id}
+	</update>
+	<!-- 删除娱乐项目 -->
+	<delete id="delete" parameterType="String">
+		delete from entertainment where id in(${value})
+	</delete>
+	
+	<!-- 分页获取娱乐项目列表 -->
+	<select id="findList" parameterType="Map" resultType="Entertainment">
+		select * from entertainment where 1 = 1 
+		
+		<!--根据娱乐项目筛选， 非空则加入条件筛选 -->
+		<if test="ename != null">
+			and ename like '%${ename}%' 
+		</if>
+		<if test="offset != null and pageSize != null">
+			limit #{offset},#{pageSize}
+		</if>
+	</select>
+	
+	<!-- 获取符合结果的总记录数 -->
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		select count(*) from entertainment where 1 = 1 
+		<!--根据食物名称筛选， 非空则加入条件筛选 -->
+		<if test="ename != null">
+			and ename like '%${ename}%' 
+		</if>
+	</select>
+</mapper>
